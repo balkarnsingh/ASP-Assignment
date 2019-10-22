@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace NetCoreAssignment.Data.Migrations
+namespace ASP_Assignment.Data.Migrations
 {
     public partial class v1 : Migration
     {

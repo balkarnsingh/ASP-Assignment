@@ -6,9 +6,9 @@ using Assignment.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NetCoreAssignment.Data;
+using ASP_Assignment.Data;
 
-namespace NetCoreAssignment.Controllers
+namespace ASP_Assignment.Controllers
 {
     public class CastsController : Controller
     {

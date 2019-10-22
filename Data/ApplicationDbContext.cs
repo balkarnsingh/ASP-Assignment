@@ -5,7 +5,7 @@ using Assignment.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace NetCoreAssignment.Data
+namespace ASP_Assignment.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
