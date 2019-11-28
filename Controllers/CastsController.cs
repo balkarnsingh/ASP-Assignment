@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ASP_Assignment.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASP_Assignment.Controllers
 {
@@ -23,15 +24,15 @@ namespace ASP_Assignment.Controllers
             var casts = _context.Casts.Include(x => x.Movie).ToList();
             return View(casts);
         }
-
+        [Authorize]
         // GET: Casts/Details/5
         public ActionResult Details(int id)
         {
             var cast = _context.Casts.Include(x => x.Movie).FirstOrDefault(x => x.Id == id);
             return View(cast);
         }
-
-        // GET: Casts/Create
+ // GET: Casts/Create
+          [Authorize]     
         public ActionResult Create()
         {
             ViewBag.Movies = _context.Movies.ToList();
@@ -39,6 +40,7 @@ namespace ASP_Assignment.Controllers
         }
 
         // POST: Casts/Create
+          [Authorize] 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([FromForm] Cast cast)
@@ -61,6 +63,7 @@ namespace ASP_Assignment.Controllers
         }
 
         // GET: Casts/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var cast = _context.Casts.FirstOrDefault(x => x.Id == id);
@@ -70,6 +73,7 @@ namespace ASP_Assignment.Controllers
 
         // POST: Casts/Edit/5
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, [FromForm] Cast cast)
         {
@@ -91,6 +95,7 @@ namespace ASP_Assignment.Controllers
         }
 
         // GET: Casts/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             var cast = _context.Casts.Include(x=>x.Movie).FirstOrDefault(x => x.Id == id);
@@ -99,6 +104,7 @@ namespace ASP_Assignment.Controllers
 
         // POST: Casts/Delete/5
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, [FromForm] Cast cast)
         {

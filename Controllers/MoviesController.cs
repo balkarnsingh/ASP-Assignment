@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ASP_Assignment.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASP_Assignment.Controllers
 {
@@ -32,6 +33,7 @@ namespace ASP_Assignment.Controllers
         }
 
         // GET: Movies/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -39,6 +41,7 @@ namespace ASP_Assignment.Controllers
 
         // POST: Movies/Create
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([FromForm] Movie movie)
         {
@@ -59,6 +62,7 @@ namespace ASP_Assignment.Controllers
         }
 
         // GET: Movies/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var movie = _context.Movies.FirstOrDefault(x => x.Id == id);
@@ -68,6 +72,7 @@ namespace ASP_Assignment.Controllers
         // POST: Movies/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(int id, [FromForm] Movie movie)
         {
             try
@@ -87,6 +92,7 @@ namespace ASP_Assignment.Controllers
         }
 
         // GET: Movies/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             var movie = _context.Movies.Include(x => x.Casts).FirstOrDefault(x => x.Id == id);
@@ -96,6 +102,7 @@ namespace ASP_Assignment.Controllers
         // POST: Movies/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Delete(int id, [FromForm] Movie movie)
         {
             try
