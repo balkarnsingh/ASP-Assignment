@@ -250,6 +250,77 @@ namespace TestController
             }
         }
 
+        [Fact]
+        public void DeleteMovie_InvalidData()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "DeleteMovie_InvalidData")
+                .Options;
+            MoviesController controller = new MoviesController(new ApplicationDbContext(options));
+
+            var tmp = new Movie
+            {
+                Description = "Movie Description",
+                Genre = Genre.Action,
+                Rating = 5.4,
+                Title = "Movie Title",
+                Year = 2019
+            };
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.Movies.Add(tmp);
+                context.SaveChanges();
+            }
+
+
+            Movie movie = null;
+
+            controller.Delete(2, movie);
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                Assert.NotEqual(0, context.Movies.Count());
+            }
+        }
+
+        [Fact]
+        public void DeleteMovie_ValidData()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "DeleteMovie_ValidData")
+                .Options;
+            MoviesController controller = new MoviesController(new ApplicationDbContext(options));
+
+            var tmp = new Movie
+            {
+                Description = "Movie Description",
+                Genre = Genre.Action,
+                Rating = 5.4,
+                Title = "Movie Title",
+                Year = 2019
+            };
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.Movies.Add(tmp);
+                context.SaveChanges();
+            }
+
+
+            Movie movie;
+            using (var context = new ApplicationDbContext(options))
+            {
+                movie = context.Movies.FirstOrDefault(x => x.Id == 1);
+            }
+
+            controller.Delete(1, movie);
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                Assert.Equal(0, context.Movies.Count());
+            }
+        }
 
     }
 }
