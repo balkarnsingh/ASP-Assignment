@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ASP-Assignment.csproj" />
     <ProjectReference Include="ASP-Assignment\ASP-Assignment.csproj" />
   </ItemGroup>
 

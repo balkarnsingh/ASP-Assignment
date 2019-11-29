@@ -91,5 +91,86 @@ namespace TestController
             }
         }
 
+
+        [Fact]
+        public void EditMovie_ValidData()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "EditMovie_ValidData")
+                .Options;
+            MoviesController controller = new MoviesController(new ApplicationDbContext(options));
+
+            var tmp = new Movie
+            {
+                Description = "Movie Description",
+                Genre = Genre.Action,
+                Rating = 5.4,
+                Title = "Movie Title",
+                Year = 2019
+            };
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.Movies.Add(tmp);
+                context.SaveChanges();
+            }
+
+
+            var movie = new Movie
+            {
+                Id = 1,
+                Description = "Movie Description",
+                Genre = Genre.Action,
+                Year = 2019,
+                Title = "New",
+                Rating = 5.4
+            };
+
+
+            controller.Edit(1, movie);
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                Assert.Equal("New", context.Movies.FirstOrDefault().Title);
+            }
+        }
+
+        [Fact]
+        public void EditMovie_InvalidData()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "EditMovie_InvalidData")
+                .Options;
+            MoviesController controller = new MoviesController(new ApplicationDbContext(options));
+
+            var tmp = new Movie
+            {
+                Description = "Movie Description",
+                Genre = Genre.Action,
+                Rating = 5.4,
+                Title = "Movie Title",
+                Year = 2019
+            };
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.Movies.Add(tmp);
+                context.SaveChanges();
+            }
+
+
+            Movie movie = null;
+
+
+            controller.Edit(1, movie);
+
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                Assert.NotEqual("New", context.Movies.FirstOrDefault().Title);
+            }
+        }
+
+
     }
 }
