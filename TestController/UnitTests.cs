@@ -172,5 +172,84 @@ namespace TestController
         }
 
 
+        [Fact]
+        public void GetMovieDetails_InvalidData()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "GetMovieDetails_InvalidData")
+                .Options;
+            MoviesController controller = new MoviesController(new ApplicationDbContext(options));
+
+
+            var tmp = new Movie
+            {
+                Description = "Movie Description",
+                Genre = Genre.Action,
+                Rating = 5.4,
+                Title = "Movie Title",
+                Year = 2019
+            };
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.Movies.Add(tmp);
+                context.SaveChanges();
+            }
+
+            ActionResult result = controller.Details(2);
+
+            Assert.IsType<ViewResult>(result);
+            if (result.GetType() == typeof(ViewResult))
+            {
+                var model = ((ViewResult)result).Model;
+                Assert.Null(model);
+            }
+        }
+
+
+        [Fact]
+        public void GetMovieDetails_ValidData()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "GetMovieDetails_ValidData")
+                .Options;
+            MoviesController controller = new MoviesController(new ApplicationDbContext(options));
+
+            var tmp = new Movie
+            {
+                Description = "Movie Description",
+                Genre = Genre.Action,
+                Rating = 5.4,
+                Title = "Movie Title",
+                Year = 2019
+            };
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.Movies.Add(tmp);
+                context.SaveChanges();
+            }
+
+            ActionResult result = controller.Details(1);
+
+            Assert.IsType<ViewResult>(result);
+            if (result.GetType() == typeof(ViewResult))
+            {
+                var model = ((ViewResult)result).Model;
+                Assert.IsType<Movie>(model);
+                if (model.GetType() == typeof(Movie))
+                {
+                    Assert.Equal(1, ((Movie)model).Id);
+                }
+            }
+
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                Assert.NotEqual(0, context.Movies.Count());
+            }
+        }
+
+
     }
 }
