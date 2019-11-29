@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP-Assignment", "ASP-Assignment.csproj", "{1E828B66-6F21-4FDA-9B28-C62F0D3CBC77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestController", "..\TestController\TestController.csproj", "{2DEBF6E9-D761-42AF-90E4-EA9C10206734}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestController", "TestController\TestController.csproj", "{2DEBF6E9-D761-42AF-90E4-EA9C10206734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
